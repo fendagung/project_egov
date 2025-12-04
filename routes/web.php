@@ -1,4 +1,4 @@
-<?php   
+<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataFeedController;
@@ -10,9 +10,9 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
-use App\Http\Controllers\PendudukController;    
+use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\AntrianSuratController;
-use App\Http\Controllers\AdminController; // <-- DITAMBAHKAN
+use App\Http\Controllers\AdminController;
 
 Route::redirect('/', 'login');
 
@@ -20,34 +20,37 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
-    | ADMIN ROUTE YANG DITAMBAHKAN
+    | ADMIN ROUTE
     |--------------------------------------------------------------------------
     */
-
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
         ->name('admin.dashboard');
 
     /*
     |--------------------------------------------------------------------------
-    | PENDUDUK & ANTRIAN SURAT
+    | PENDUDUK & ANTRIAN SURAT (SUDAH DIPERBAIKI TOTAL)
     |--------------------------------------------------------------------------
     */
 
+    // CRUD Penduduk
     Route::resource('penduduk', PendudukController::class);
+
+    // CRUD Antrian Surat
     Route::resource('antrian', AntrianSuratController::class);
 
-    Route::post('antrian/{antrian_surat}/status', 
+    // Update Status Antrian
+    Route::post('antrian/{antrian}/status', 
         [AntrianSuratController::class, 'updateStatus']
     )->name('antrian.status.update');
 
-    Route::get('antrian/{antrian_surat}/cetak-sktm',
+    // Cetak Surat SKTM
+    Route::get('antrian/{antrian}/cetak-sktm',
         [AntrianSuratController::class, 'cetakSKTM']
     )->name('antrian.cetak.sktm');
 
-
     /*
     |--------------------------------------------------------------------------
-    | ROUTES LAINNYA (PROJECT ASLI)
+    | ROUTES LAINNYA (TEMPLATE ASLI)
     |--------------------------------------------------------------------------
     */
 
