@@ -20,7 +20,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
-    | ADMIN ROUTE
+    | ADMIN DASHBOARD
     |--------------------------------------------------------------------------
     */
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
@@ -28,32 +28,33 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
-    | PENDUDUK & ANTRIAN SURAT (SUDAH DIPERBAIKI TOTAL)
+    | PENDUDUK (CRUD)
     |--------------------------------------------------------------------------
     */
-
-    // CRUD Penduduk
     Route::resource('penduduk', PendudukController::class);
 
-    // CRUD Antrian Surat
+    /*
+    |--------------------------------------------------------------------------
+    | ANTRIAN SURAT (CRUD)
+    |--------------------------------------------------------------------------
+    */
     Route::resource('antrian', AntrianSuratController::class);
 
-    // Update Status Antrian
+    // Update status antrian
     Route::post('antrian/{antrian}/status', 
         [AntrianSuratController::class, 'updateStatus']
     )->name('antrian.status.update');
 
-    // Cetak Surat SKTM
+    // Cetak SKTM
     Route::get('antrian/{antrian}/cetak-sktm',
         [AntrianSuratController::class, 'cetakSKTM']
     )->name('antrian.cetak.sktm');
 
     /*
     |--------------------------------------------------------------------------
-    | ROUTES LAINNYA (TEMPLATE ASLI)
+    | ROUTES TEMPLATE LAINNYA (ASLI)
     |--------------------------------------------------------------------------
     */
-
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
 
     // DASHBOARD

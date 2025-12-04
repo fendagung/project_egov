@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers;
 
@@ -13,9 +13,7 @@ class AntrianSuratController extends Controller
         $this->middleware('auth');
     }
 
-    // ==============================
     // INDEX
-    // ==============================
     public function index(Request $request)
     {
         $jenis = $request->get('jenis');
@@ -40,9 +38,7 @@ class AntrianSuratController extends Controller
         }
     }
 
-    // ==============================
     // CREATE
-    // ==============================
     public function create()
     {
         $penduduk = Penduduk::orderBy('nama')->get();
@@ -57,9 +53,7 @@ class AntrianSuratController extends Controller
         return view('antrian.create', compact('penduduk', 'jenisSurat'));
     }
 
-    // ==============================
     // STORE
-    // ==============================
     public function store(Request $request)
     {
         $request->validate([
@@ -78,9 +72,7 @@ class AntrianSuratController extends Controller
         return redirect()->route('antrian.index')->with('success', 'Antrian berhasil ditambahkan!');
     }
 
-    // ==============================
     // EDIT
-    // ==============================
     public function edit(Antrian $antrian)
     {
         $penduduk = Penduduk::orderBy('nama')->get();
@@ -95,9 +87,7 @@ class AntrianSuratController extends Controller
         return view('antrian.edit', compact('antrian', 'penduduk', 'jenisSurat'));
     }
 
-    // ==============================
     // UPDATE
-    // ==============================
     public function update(Request $request, Antrian $antrian)
     {
         $request->validate([
@@ -111,9 +101,7 @@ class AntrianSuratController extends Controller
         return redirect()->route('antrian.index')->with('success', 'Antrian berhasil diperbarui!');
     }
 
-    // ==============================
     // DELETE
-    // ==============================
     public function destroy(Antrian $antrian)
     {
         $antrian->delete();
@@ -121,9 +109,7 @@ class AntrianSuratController extends Controller
         return redirect()->route('antrian.index')->with('success', 'Antrian berhasil dihapus!');
     }
 
-    // ==============================
     // UPDATE STATUS
-    // ==============================
     public function updateStatus(Request $request, Antrian $antrian)
     {
         $antrian->update([
@@ -133,11 +119,11 @@ class AntrianSuratController extends Controller
         return back()->with('success', 'Status berhasil diperbarui!');
     }
 
-    // ==============================
     // CETAK SKTM
-    // ==============================
     public function cetakSKTM(Antrian $antrian)
     {
-        return view('surat.sktm', compact('antrian'));
+        $penduduk = $antrian->penduduk;
+
+        return view('surat.sktm', compact('penduduk', 'antrian'));
     }
 }

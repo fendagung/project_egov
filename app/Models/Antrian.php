@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Antrian extends Model
 {
-    protected $table = 'antrian_surat';  // WAJIB SAMA DENGAN NAMA TABEL
+    // Tabel yang digunakan
+    protected $table = 'antrian_surat';
 
+    // Kolom yang boleh diisi massal
     protected $fillable = [
         'penduduk_id',
         'jenis_surat',
@@ -15,6 +17,7 @@ class Antrian extends Model
         'keterangan',
     ];
 
+    // Relasi ke Penduduk
     public function penduduk()
     {
         return $this->belongsTo(Penduduk::class, 'penduduk_id');
